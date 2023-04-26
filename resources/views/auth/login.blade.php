@@ -23,7 +23,7 @@
           <p class="info-google">Inicieu sessió amb Google:</p>
           <div class="u-form-group">
             <div class="button-box">
-              <button class="btn-google"> <img src="https://www.google.com/favicon.ico" alt="google"><a href="{{route('login-google')}}"> Google </a></button>
+              <button class="btn-google"> <img src="https://www.google.com/favicon.ico" alt="google"><a href="{{route('login-google')}}"> </a></button>
             </div>
           </div>
         </form>

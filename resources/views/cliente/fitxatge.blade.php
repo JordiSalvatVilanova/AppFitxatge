@@ -1,14 +1,4 @@
 @extends("template.main")
-<head>
-    <!-- Hojas de estilo de Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-
-    <!-- Biblioteca jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Biblioteca JavaScript de Bootstrap -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-</head>
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/fitxatge-client.css') }}">
@@ -20,105 +10,103 @@
 @endpush
 
 @section("content")
-        <!-- TABLAAAAA -->
-        <div id="centrar">
-            <div id="tablaFichaje" class="col-md-7 table-responsive table-container">
-                <table class="table table-dark table-striped" id="my-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Data</th>
-                            <th scope="col">Entrada</th>
-                            <th scope="col" class="pausa-continuitat">Pausa</th>
-                            <th scope="col" class="pausa-continuitat">Continuïtat</th>
-                            <th scope="col">Sortida</th>
-                            <th scope="col">Temps Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="col">23-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- CALENDARI -->
+        <div id="calendarioContenedor">
+            <div id="calendario">
+              <div id="anterior" onclick="mesantes()"></div>
+              <div id="posterior" onclick="mesdespues()"></div>
+              <h2 id="titulos"></h2>
+              <table id="diasc">
+                <tr id="fila0">
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr id="fila1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr id="fila2">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr id="fila3">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr id="fila4">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr id="fila5">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr id="fila6">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+              <div id="fechaactual"><i onclick="actualizar()">HOY: </i></div>
+              <div id="buscafecha">
+                <form action="#" name="buscar">
+                  <p class="textoCalendario">Buscar ... MES
+                    <select name="buscames">
+                      <option value="0">Enero</option>
+                      <option value="1">Febrero</option>
+                      <option value="2">Marzo</option>
+                      <option value="3">Abril</option>
+                      <option value="4">Mayo</option>
+                      <option value="5">Junio</option>
+                      <option value="6">Julio</option>
+                      <option value="7">Agosto</option>
+                      <option value="8">Septiembre</option>
+                      <option value="9">Octubre</option>
+                      <option value="10">Noviembre</option>
+                      <option value="11">Diciembre</option>
+                    </select>
+                    ... AÑO ...
+                    <input type="text" name="buscaanno" maxlength="4" size="4" />
+                    ...
+                    <input type="button" value="BUSCAR" onclick="mifecha()" />
+                  </p>
+                </form>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
 @endsection

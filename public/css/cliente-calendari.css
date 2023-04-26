@@ -1,128 +1,3 @@
-#calendarioContenedor {
-    width: 1400px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    height: 750px;
-}
-
-/*cabecera de la página*/
-h1 {
-    text-align: center;
-    padding: 0.5em;
-}
-
-/*div principal del calendario*/
-#calendario {
-    border: 1px solid #494856;
-    border-radius: 15px;
-    background-color: #fffafa;
-    text-align: center;
-    width: 100%;
-}
-
-/*tabla del calendario*/
-#diasc {
-    border: 1px solid #494856;
-    border-collapse: separate;
-    border-spacing: 4px;
-}
-
-#diasc th,
-#diasc td {
-    font: normal 14pt;
-    width: 194px;
-    height: 75px;
-}
-
-#diasc th {
-    color: #e8e8db;
-    background-color: #636057;
-}
-
-#diasc td {
-    color: #494856;
-    background-color: #e8e8db;
-}
-
-/*línea de la fecha actual*/
-#fechaactual {
-    font: bold 12pt;
-    padding: 0.4em;
-}
-
-#fechaactual i {
-    cursor: pointer;
-}
-
-#fechaactual i:hover {
-    color: #494856;
-    text-decoration: underline;
-}
-
-/*formulario de busqueda de fechas*/
-#buscafecha {
-    background-color: #494856;
-    color: #e8e8db;
-    padding: 5px;
-}
-
-#buscafecha select,
-#buscafecha input {
-    background-color: #e8e8db;
-    color: #494856;
-    font: bold 25pt;
-}
-
-#buscafecha [type="text"] {
-    text-align: center;
-}
-
-#buscafecha [type="button"] {
-    cursor: pointer;
-}
-
-/*cabecera del calendario*/
-#anterior {
-    float: left;
-    width: 100px;
-    font-size: 20px;
-    padding: 0.5em 0.1em;
-    cursor: pointer;
-}
-
-#posterior {
-    float: right;
-    width: 100px;
-    /* font: bold 12pt arial; */
-    padding: 0.5em 0.1em;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-#anterior:hover {
-    color: #494856;
-    text-decoration: underline;
-}
-
-#posterior:hover {
-    color: #494856;
-    text-decoration: underline;
-}
-
-#titulos {
-    padding: 0.2em;
-    color: #494856;
-}
-
-.textoCalendario {
-    font-size: 1.5rem;
-    background-color: #494856;
-}
-
-/*NAVBARRA*/
-
 .navbar-brand img {
     max-height: 60px;
 }
@@ -222,6 +97,24 @@ h1 {
 
 .barra-baja:hover::before {
     transform: scaleX(1);
+}
+
+/* ------------- Estils per el scrollbar PAGINA WEB ------------- */
+::-webkit-scrollbar {
+    /* ample del scrollbar */
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    /* color del fondo del scrollbar */
+    background: #4b525a;
+}
+
+::-webkit-scrollbar-thumb {
+    /* color del thumb del scrollbar */
+    background: #333;
+    /* border-radius: 6px; */
+    /* border: 1px solid white; */
 }
 
 /* ------------------------- FOOTER ------------------------ */
@@ -349,4 +242,18 @@ footer {
     #centrar {
         font-size: 9px;
     }
+}
+
+#calendar {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.closeon {
+    border-radius: 5px;
 }

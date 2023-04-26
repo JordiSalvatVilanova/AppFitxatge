@@ -19,7 +19,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link estilNav">
-                        <img src="img/fotoPerfil.jpg" alt="Imatge de perfil" class="rounded-circle" width="40" height="40">
                         Nom d'usuari
                     </a>
                 </li>
