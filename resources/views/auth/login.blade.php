@@ -7,8 +7,8 @@
     <div class="container">
       <div class="login-box">
         <div class="lb-header">
-          <a href="#" class="active empleado-link">Treballador</a>
-          <a href="#" class="administrador-link">Administrador</a>
+          <a class="active empleado-link">Treballador</a>
+          <a class="administrador-link">Administrador</a>
         </div>
         <ul>
             @foreach ($errors->all() as $error)
@@ -16,10 +16,9 @@
             @endforeach
         </ul>
 
-        <form class="empleado-form"  method="POST" >
+        <form class="empleado-form" action="{{ route('login-google') }}" method="POST">
           @csrf
-          <p class="title-empresa"> IdentWork <br><img src="https://logodix.com/logo/2134548.png" width="60" height="60" alt="Logo"></p>
-          
+          <p class="title-empresa"> IdentWork <br><img src="https://logodix.com/logo/2134548.png" width="60" height="60" alt="Logo"></p>   
           <p class="info-google">Inicieu sessió amb Google:</p>
           <div class="u-form-group">
             <div class="button-box">

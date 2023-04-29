@@ -19,9 +19,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link estilNav">
-                        Nom d'usuari
+                        {{ Auth::user()->name }}
                     </a>
                 </li>
+
+                <button href="{{ route('logout') }}" >Sortir</button>
+
             </ul>
         </div>
     </div>

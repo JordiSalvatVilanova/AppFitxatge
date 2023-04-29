@@ -40,9 +40,16 @@ Route::get('/fitxatge', function () {
 
 //FIN DE ROUTE DE LA PARTE DE CLIENTE
 
+//ROUTE DE LA PARTE DE ADMINISTRADOR
+
+Route::get('/pin', function () {
+    return view('admin/pin');
+})->name("pin");
+//FIN DE ROUTE DE LA PARTE DE ADMINISTRADOR
 
 
-Route::get('/login-google', function () {
+
+Route::post('/login-google', function () {
     return Socialite::driver('google')->redirect();
 })->name('login-google');
 
@@ -64,7 +71,7 @@ Route::get('/google-callback', function () {
 
         Auth::login($userNew);
     }
-    return redirect('/dashboard');
+    return redirect('/inici');
     // $user->token
 });
 
