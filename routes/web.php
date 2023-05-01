@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\CalendariController;
-use App\Http\Controllers\FullCalenderController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FitxatgeController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,37 +20,19 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('auth.login');
-})->middleware("guest");
+})->middleware("guest"); // GUEST -> INVITADO
 
-
-//ROUTE DE LA PARTE DE CLIENTE
-//Route::get("inici", [ClienteController::class, "inici"])->name("inici");
-Route::get('/inici', function () {
-    return view('cliente/inici');
-})->name("inici");
-
-Route::get('/calendari', function () {
-    return view('cliente/calendari');
-})->name("calendari");
-
-Route::get('/fitxatge', function () {
-    return view('cliente/fitxatge');
-})->name("fitxatge");
-
-//FIN DE ROUTE DE LA PARTE DE CLIENTE
 
 //ROUTE DE LA PARTE DE ADMINISTRADOR
-
 Route::get('/pin', function () {
     return view('admin/pin');
 })->name("pin");
 //FIN DE ROUTE DE LA PARTE DE ADMINISTRADOR
 
-
-
+//ROUTE DE LA PARTE DE GOOGLE
 Route::post('/login-google', function () {
     return Socialite::driver('google')->redirect();
-})->name('login-google');
+})->name('login-google')->middleware("guest");
 
 Route::get('/google-callback', function () {
     $user = Socialite::driver('google')->user();
@@ -73,8 +54,8 @@ Route::get('/google-callback', function () {
     }
     return redirect('/inici');
     // $user->token
-});
-
+})->middleware("guest");
+//FIN DE ROUTE DE LA PARTE DE GOOGLE
 
 
 Route::middleware([
@@ -85,4 +66,21 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    //ROUTE DE LA PARTE DE CLIENTE
+    Route::get("inici", [ClienteController::class, "inici"])->name("inici");
+
+    Route::get('/agenda', function () {
+        return view('cliente/agenda');
+    })->name("agenda");
+
+    Route::get('/fitxatge', function () {
+        return view('cliente/fitxatge');
+    })->name("fitxatge");
+
+
+    Route::post("fitxatge/entrada", [FitxatgeController::class, 'entrada'])->name("fitxatge.entrada"); // nombre --> controlador.funcion
+    Route::post("fitxatge/sortida", [FitxatgeController::class, 'sortida'])->name("fitxatge.sortida"); // nombre --> controlador.funcion
+
+    //FIN DE ROUTE DE LA PARTE DE CLIENTE
 });
