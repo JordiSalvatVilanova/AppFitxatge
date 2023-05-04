@@ -12,6 +12,6 @@ class Fitxatge extends Model
     protected $table = "fitxatge";
 
     protected $fillable = [
-        "id_empresa", "id_traballador", "entrada", "pausa", "continuitat", "sortida", "data"
+        "id_empresa", "id_traballador", "entrada", "pausa", "continuitat", "sortida", "data", "temps_total"
     ];
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->dateTime('pausa')->nullable();
             $table->dateTime('continuitat')->nullable();
             $table->dateTime('sortida')->nullable();
-            //$table->integer('temps_total')->nullable();
             $table->date('data')->nullable();
             $table->timestamps();
         });

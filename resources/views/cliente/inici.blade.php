@@ -42,16 +42,18 @@
                 <h3>Entrada</h3>
             </button>
         </form>
-        {{-- <form role="form" action="{{ route('fitxatge.pausa') }}" method="post">
+        <form role="form" action="{{ route('fitxatge.pausa') }}" method="post">
+            @csrf
             <button type="submit" class="btn btn-outline-primary m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Pausa</h3>
             </button>
-        </form> --}}
-        {{-- <form role="form" action="{{ route('fitxatge.continuacio') }}" method="post">
+        </form>
+        <form role="form" action="{{ route('fitxatge.continuacio') }}" method="post">
+            @csrf
             <button type="submit" class="btn btn-outline-info m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Continuació</h3>
             </button>
-        </form> --}}
+        </form>
         <form role="form" action="{{ route('fitxatge.sortida') }}" method="post"
             @if (!$fitxatge) class="d-none" @endif>
             @csrf

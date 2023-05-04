@@ -1,9 +1,11 @@
+/********************************** CALENDARIO *****************************************************/
+
 #calendarioContenedor {
     width: 1400px;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    align-items: center;
     height: 750px;
 }
 
@@ -19,7 +21,7 @@ h1 {
     border-radius: 15px;
     background-color: #fffafa;
     text-align: center;
-    width: 100%;
+    /*  width: 100%; */
 }
 
 /*tabla del calendario*/
@@ -118,7 +120,174 @@ h1 {
 
 .textoCalendario {
     font-size: 1.5rem;
-    background-color: #494856;
+}
+
+/* CELDA DIV */
+td {
+    position: relative;
+}
+
+.hours-worked {
+    /* display: none; */
+    font-size: 13px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+td:hover .hours-worked {
+    display: block;
+}
+
+
+/* Para pantallas grandes, se ajusta el ancho del contenedor principal */
+@media (min-width: 992px) {
+    #calendarioContenedor {
+        width: 80%;
+    }
+}
+
+/* Para pantallas medianas, se ajusta el ancho de los días de la semana y se disminuye el tamaño de fuente */
+@media only screen and (max-width: 995px) and (min-width: 768px) {
+    #calendarioContenedor {
+        width: 80%;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    #buscafecha {
+        padding: 0;
+    }
+
+    #diasc th,
+    #diasc td {
+        font: normal 12pt;
+        width: 150px;
+        height: 62px;
+    }
+}
+
+/* Para pantallas pequeñas, se ajusta el ancho del contenedor principal y se cambia la dirección del flexbox */
+
+@media (min-width: 580px) and (max-width: 768px) {
+    #calendarioContenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    #diasc th,
+    #diasc td {
+        font: normal 12pt;
+        width: 150px;
+        height: 62px;
+    }
+
+    .textoCalendario {
+        font-size: 1.3rem;
+    }
+
+    #buscafecha {
+        padding: 0;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 580px) {
+
+    #calendarioContenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    #diasc th,
+    #diasc td {
+        font: normal 12pt;
+        width: 150px;
+        height: 45px;
+    }
+
+    .textoCalendario {
+        font-size: 1.1rem;
+    }
+
+    #buscafecha {
+        padding: 0;
+    }
+
+    .hours-worked {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 410px) and (max-width: 480px) {
+    #calendarioContenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    #diasc th,
+    #diasc td {
+        font: normal 12pt;
+        width: 150px;
+        height: 45px;
+    }
+
+    #titulos {
+        font-size: 27px;
+    }
+
+    .textoCalendario {
+        font-size: 0.9rem;
+    }
+
+    #buscafecha {
+        padding: 0;
+    }
+
+    .hours-worked {
+        font-size: 8px;
+    }
+}
+
+@media (min-width: 200px) and (max-width: 410px) {
+    #calendarioContenedor {
+        width: 90%;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    #diasc th,
+    #diasc td {
+        font: normal 12pt;
+        width: 150px;
+        height: 45px;
+    }
+
+    #titulos {
+        font-size: 23px;
+    }
+
+    .textoCalendario {
+        font-size: 0.9rem;
+    }
+
+    #buscafecha {
+        padding: 0;
+    }
+
+    .hours-worked {
+        font-size: 8px;
+    }
 }
 
 /*NAVBARRA*/
@@ -224,12 +393,39 @@ h1 {
     transform: scaleX(1);
 }
 
+/* ------------- Estils per el scrollbar PAGINA WEB ------------- */
+::-webkit-scrollbar {
+    /* ample del scrollbar */
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    /* color del fondo del scrollbar */
+    background: #4b525a;
+}
+
+::-webkit-scrollbar-thumb {
+    /* color del thumb del scrollbar */
+    background: #333;
+    /* border-radius: 6px; */
+    /* border: 1px solid white; */
+}
+
 /* ------------------------- FOOTER ------------------------ */
 footer {
     background-color: rgb(30, 30, 30);
+    margin-top: 20px;
     color: #76808c;
     padding: 20px;
-    max-width: 100vw;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 210px;
+    /* Alçada del footer */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .contanidor {
@@ -250,103 +446,12 @@ footer {
     padding-inline: 5px;
 }
 
-@media only screen and (max-width: 1300px) {
-
-    #centrar {
-        font-size: 25px;
-    }
-
-    .col-md-7 {
-        max-width: 95.333333%;
-    }
+html {
+    position: relative;
+    min-height: 100%;
 }
 
-@media only screen and (max-width: 1025px) {
-
-    #centrar {
-        font-size: 22px;
-    }
-
-}
-
-@media only screen and (max-width: 800px) {
-
-    #centrar {
-        font-size: 20px;
-    }
-
-}
-
-@media only screen and (max-width: 738px) {
-
-    #centrar {
-        font-size: 17px;
-    }
-
-}
-
-@media only screen and (max-width: 660px) {
-    .pausa-continuitat {
-        display: none;
-    }
-
-    #centrar {
-        font-size: 18px;
-    }
-}
-
-@media only screen and (max-width: 482px) {
-
-    #centrar {
-        font-size: 16px;
-    }
-}
-
-@media only screen and (max-width: 450px) {
-
-    #centrar {
-        font-size: 15px;
-    }
-}
-
-@media only screen and (max-width: 425px) {
-
-    #centrar {
-        font-size: 14px;
-    }
-}
-
-@media only screen and (max-width: 405px) {
-
-    #centrar {
-        font-size: 13px;
-    }
-}
-
-@media only screen and (max-width: 389px) {
-
-    #centrar {
-        font-size: 12px;
-    }
-}
-
-@media only screen and (max-width: 367px) {
-
-    #centrar {
-        font-size: 11px;
-    }
-}
-
-@media only screen and (max-width: 349px) {
-
-    #centrar {
-        font-size: 10px;
-    }
-}
-
-@media only screen and (max-width: 328px) {
-
-    #centrar {
-        font-size: 9px;
-    }
+body {
+    margin-bottom: 210px;
+    /* Alçada del footer */
 }

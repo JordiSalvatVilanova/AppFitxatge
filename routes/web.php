@@ -80,7 +80,11 @@ Route::middleware([
 
 
     Route::post("fitxatge/entrada", [FitxatgeController::class, 'entrada'])->name("fitxatge.entrada"); // nombre --> controlador.funcion
+    Route::post("fitxatge/pausa", [FitxatgeController::class, 'pausa'])->name("fitxatge.pausa"); // nombre --> controlador.funcion
+    Route::post("fitxatge/continuacio", [FitxatgeController::class, 'continuacio'])->name("fitxatge.continuacio"); // nombre --> controlador.funcion
     Route::post("fitxatge/sortida", [FitxatgeController::class, 'sortida'])->name("fitxatge.sortida"); // nombre --> controlador.funcion
+
+    Route::get("fitxatge/mostrar/{fecha}", [FitxatgeController::class, 'devolverfitxarge']); // nombre --> controlador.funcion
 
     //FIN DE ROUTE DE LA PARTE DE CLIENTE
 });

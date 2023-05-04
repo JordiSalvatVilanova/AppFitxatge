@@ -1,27 +1,29 @@
+//-------------------------------------------------------CALENDARIO---------------------------------
+//Arrays de datos:
 meses = [
-    "enero",
-    "febrero",
-    "marzo",
+    "gener",
+    "febrer",
+    "març",
     "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
+    "maig",
+    "juny",
+    "juliol",
+    "agost",
+    "setembre",
     "octubre",
-    "noviembre",
-    "diciembre",
+    "novembre",
+    "desembre",
 ];
 lasemana = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miércoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
+    "Diumenge",
+    "Dilluns",
+    "Dimarts",
+    "Dimecres",
+    "Dijous",
+    "Divendres",
+    "Dissabte",
 ];
-diassemana = ["lun", "mar", "mié", "jue", "vie", "sáb", "dom"];
+diassemana = ["dl", "dt", "dc", "dj", "dv", "ds", "dg"];
 //Tras cargarse la página ...
 window.onload = function () {
     //fecha actual
@@ -55,6 +57,7 @@ window.onload = function () {
     cabecera();
     primeralinea();
     escribirdias();
+
 };
 //FUNCIONES de creación del calendario:
 //cabecera del calendario
@@ -79,7 +82,7 @@ function primeralinea() {
     }
 }
 //rellenar celdas con los días
-function escribirdias() {
+async function escribirdias() {
     //Buscar dia de la semana del dia 1 del mes:
     primeromes = new Date(annocal, mescal, "1"); //buscar primer día del mes
     prsem = primeromes.getDay(); //buscar día de la semana del día 1
@@ -102,28 +105,61 @@ function escribirdias() {
             mimes = diames.getMonth();
             mianno = diames.getFullYear();
             celda = fila.getElementsByTagName("td")[j];
+            var fecha = mianno + '-' + (mimes + 1 > 9 + 1 ? eval(mimes + 1) : "0" + eval(mimes + 1)) + '-' + (midia > 9 ? midia : "0" + midia);
+            const data = await getdata(fecha);
+
+            // Num del dia
             celda.innerHTML = midia;
+
+            // POSO LA QUANTITAT DE HORES D'AQUELL DIA ------------------------------------------------------------------------------------------------------
+            celda.innerHTML += '<div class="hours-worked">' + data.total + ' h</div>'
+
             //Recuperar estado inicial al cambiar de mes:
             celda.style.backgroundColor = "#e8e8db";
             celda.style.color = "#492736";
             //domingos en rojo
-            if (j == 6) {
+            if (j == 6 || j == 5) {
                 celda.style.color = "#f11445";
+                celda.innerHTML = midia;
             }
             //dias restantes del mes en gris
             if (mimes != mescal) {
                 celda.style.color = "#a0babc";
+                celda.innerHTML = midia;
             }
             //destacar la fecha actual
             if (mimes == meshoy && midia == diahoy && mianno == annohoy) {
                 celda.style.backgroundColor = "#f0b19e";
                 celda.innerHTML = "<cite title='Fecha Actual'>" + midia + "</cite>";
+
+                //POSO LA QUANTITAT DE HORES D'AQUELL DIA ------------------------------------------------------------------------------------------------------
+                celda.innerHTML += '<div class="hours-worked">' + data.total + ' h</div>'
             }
             //pasar al siguiente día
             midia = midia + 1;
             diames.setDate(midia);
+
+            celda.addEventListener("click", function () {
+                let textoCelda = this.innerText;
+                let dia = textoCelda.split("\n")
+                let horas = this.querySelector(".hours-worked").textContent;
+                // SWEET ALERT ---------------------------------------------------------------------
+                Swal.fire({
+                    title: `<strong> Dia ${dia[0]}</strong>`,
+                    icon: 'success',
+                    html: `
+                        <p>Hores Treballades: ${horas}</p>
+                        <p>Entrada: ${data.entrada}</p>
+                        <p>Sortida: ${data.sortida}</p>
+                        <p>Descans: ${data.descans} h</p>
+                    `,
+                    showCloseButton: true,
+                });
+            })
+
         }
     }
+
 }
 //Ver mes anterior
 function mesantes() {
@@ -178,28 +214,16 @@ function mifecha() {
     }
 }
 
-function errorr() {
-    alert("errooooor");
-}
+async function getdata(fecha) {
 
-// Obtener todas las celdas de fecha de la tabla
-var celdasFecha = document.querySelectorAll("#diasc td");
+    var res;
 
-// Agregar evento onClick a cada celda de fecha
-celdasFecha.forEach(function (celda) {
-    celda.addEventListener("click", function () {
-        // Aquí puedes agregar código para mostrar el pop up con los datos
-        // que deseas mostrar cuando se hace clic en una celda de fecha
+    await $.get('/fitxatge/mostrar/' + fecha, function (data, status) {
+
+        if (status == "success") {
+            res = data;
+        }
     });
-});
 
-celda.addEventListener("click", function () {
-    // Crear un elemento div que contendrá los datos del pop up
-    var popUp = document.createElement("div");
-
-    // Agregar los datos al elemento div
-    popUp.innerHTML = "Aquí van los datos que deseas mostrar en el pop up.";
-
-    // Agregar el elemento div al DOM
-    document.body.appendChild(popUp);
-});
+    return res;
+}
