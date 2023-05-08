@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AfegirController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FitxadminController;
 use App\Http\Controllers\FitxatgeController;
+use App\Http\Controllers\GraficosController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
@@ -27,6 +32,16 @@ Route::get('/', function () {
 Route::get('/pin', function () {
     return view('admin/pin');
 })->name("pin");
+
+Route::get("/fitxadmin", [FitxadminController::class, "fitxadmin"])->name("fitxadmin");
+
+Route::get("/afegir", [AfegirController::class, "afegir"])->name("afegir");
+Route::post('/import-users', [UserController::class, "importUsers"])->name('import-users');
+
+
+Route::get("/graficos", [GraficosController::class, "graficos"])->name("graficos");
+/* Route::get("/reports", [ReportsController::class, "reports"])->name("reports"); */
+
 //FIN DE ROUTE DE LA PARTE DE ADMINISTRADOR
 
 //ROUTE DE LA PARTE DE GOOGLE

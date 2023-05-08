@@ -16,7 +16,7 @@
 
 <body>
 
-    @include('partials.nav-top')
+    @include('partials.nav-topadmin')
 
     <div class="wrapper">
         @yield('content')
