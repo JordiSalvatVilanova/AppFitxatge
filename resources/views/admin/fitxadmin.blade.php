@@ -26,104 +26,23 @@
                             <th scope="col" class="pausa-continuitat">Continuïtat</th>
                             <th scope="col">Sortida</th>
                             <th scope="col">Temps Total</th>
-                            <th scope="col">Departament</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td scope="col">23-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
-                        <tr>
-                            <td scope="col">24-03-2023</td>
-                            <td scope="col">23:50:30</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col" class="pausa-continuitat">-</td>
-                            <td scope="col">07:50:30</td>
-                            <td scope="col">8h</td>
-                            <td scope="col">Matematiques</td>
-                        </tr>
+                        @foreach ($fitxatges as $fitxatge)
+                            <tr>
+                                <td scope="col">{{ $fitxatge->data }}</td>
+                                <td scope="col">{{ $fitxatge->entrada }}</td>
+                                <td scope="col" class="pausa-continuitat">{{ $fitxatge->pausa }}</td>
+
+                                <td scope="col" class="pausa-continuitat">{{ $fitxatge->continuitat }}</td>
+                                <td scope="col">{{ $fitxatge->sortida }}</td>
+                                <td scope="col">{{ $fitxatge->hores_totals }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 @endsection

@@ -151,7 +151,6 @@ async function escribirdias() {
                         <p>Hores Treballades: ${horas}</p>
                         <p>Entrada: ${data.entrada}</p>
                         <p>Sortida: ${data.sortida}</p>
-                        <p>Descans: ${data.descans} h</p>
                     `,
                     showCloseButton: true,
                 });

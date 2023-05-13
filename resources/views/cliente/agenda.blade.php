@@ -1,4 +1,4 @@
-@extends("template.main")
+@extends('template.main')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/cliente-agenda.css') }}">
@@ -15,10 +15,9 @@
     <script src="{{ asset('js/cliente-agenda.js') }}"></script>
 @endpush
 
-@section("content")
-<br>
-<div id="contenedor">
-    <div id='calendar'></div>
-</div>
-
+@section('content')
+    <br>
+    <div id="contenedor">
+        <div id="calendar"></div>
+    </div>
 @endsection()

@@ -14,4 +14,16 @@ class Fitxatge extends Model
     protected $fillable = [
         "id_empresa", "id_traballador", "entrada", "pausa", "continuitat", "sortida", "data", "temps_total"
     ];
+
+    public function addPausa()
+    {
+        $this->pausa_count += 1;
+        $this->save();
+    }
+
+    public function addContinuacio()
+    {
+        $this->continuacio_count += 1;
+        $this->save();
+    }
 }
