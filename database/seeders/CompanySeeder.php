@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RoleSeeder extends Seeder
+class CompanySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,12 +14,9 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table("roles")->insert([
-            "name" => "Administrador"
-        ]);
-
-        DB::table("roles")->insert([
-            "name" => "Treballador"
+        DB::table("company")->insert([
+            "name" => "Institut Baix Camp",
+            "pin" => "7412"
         ]);
     }
 }

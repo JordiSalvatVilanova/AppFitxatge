@@ -25,7 +25,7 @@ class UserController extends Controller
 
             return redirect()->back()->with('success', 'Els nous empleats han estat importats correctament.');
         } else {
-            return redirect()->back()->with('success', 'No ha seleccionat cap fitxer per pujar.');
+            return redirect()->back()->with('error', 'No ha seleccionat cap fitxer per pujar.');
         }
     }
 
@@ -36,7 +36,7 @@ class UserController extends Controller
             return redirect()->route("inici");
         }
 
-        $date = now()->format('Ymd');
+        $date = now()->format('YmdHos');
         $fileName = 'empleats_' . $date . '.csv';
         return Excel::download(new UserExport, $fileName);
     }

@@ -52,8 +52,12 @@
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
-                    var title = prompt('Títol de l\'esdeveniment:');
-                    /*                    
+                    //var title = prompt('Títol de l\'esdeveniment:');
+                    var title = null;
+
+                    var start2 = start;
+                    var end2 = end;
+
                     Swal.fire({
                         title: 'Títol de l\'esdeveniment:',
                         input: 'text',
@@ -61,49 +65,47 @@
                         confirmButtonText: 'Guardar',
                         cancelButtonText: 'Cancelar',
                         inputValidator: (value) => {
-                            if (!value) {
+                            if (value) {
+                                title = value
+                            } else {
                                 return 'Cal introduir un títol';
                             }
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            var title = result.value;
-                            // Aquí puedes continuar con el resto del código
+                            title = result.value;
+
+                            var start3 = $.fullCalendar.formatDate(start2, "Y-MM-DD");
+                            var end3 = $.fullCalendar.formatDate(end2, "Y-MM-DD");
+
+                            $.ajax({
+                                url: SITEURL + "/fullcalenderAjax",
+                                data: {
+                                    title: title,
+                                    start: start3,
+                                    end: end3,
+                                    type: 'add'
+                                },
+                                type: "POST",
+                                success: function(data) {
+                                    Swal.fire({
+                                        title: 'Esdeveniment creat amb èxit!',
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonText: 'OK'
+                                    });
+                                    calendar.fullCalendar('renderEvent', {
+                                        id: data.id,
+                                        title: title,
+                                        start: start,
+                                        end: end,
+                                        allDay: allDay
+                                    }, true);
+                                    calendar.fullCalendar('unselect');
+                                }
+                            })
                         }
                     });
-                    */
-                    if (title) {
-                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
-                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
-                        $.ajax({
-                            url: SITEURL + "/fullcalenderAjax",
-                            data: {
-                                title: title,
-                                start: start,
-                                end: end,
-                                type: 'add'
-                            },
-                            type: "POST",
-                            success: function(data) {
-                                Swal.fire({
-                                    title: 'Esdeveniment creat amb èxit!',
-                                    icon: 'success',
-                                    showCancelButton: false,
-                                    confirmButtonText: 'OK'
-                                });
-
-                                calendar.fullCalendar('renderEvent', {
-                                    id: data.id,
-                                    title: title,
-                                    start: start,
-                                    end: end,
-                                    allDay: allDay
-                                }, true);
-
-                                calendar.fullCalendar('unselect');
-                            }
-                        });
-                    }
                 },
                 eventDrop: function(event, delta) {
                     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
@@ -169,6 +171,10 @@
         /*Codi d'èxit de Toastr*/
         function displayMessage(message) {
             toastr.success(message, 'Esdeveniment');
+        }
+
+        function add() {
+
         }
     </script>
 @endpush

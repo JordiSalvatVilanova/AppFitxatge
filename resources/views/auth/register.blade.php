@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100"
+    <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0"
         style="background-image: url(img/verd.jpg); background-size: cover;">
         @push('styles')
             <link rel="stylesheet" href="{{ asset('css/login-register.css') }}">
@@ -7,7 +7,7 @@
         <x-jet-authentication-card>
 
             <x-slot name="logo">
-                <x-jet-authentication-card-logo />
+                {{-- <x-jet-authentication-card-logo /> --}}
             </x-slot>
 
             <x-jet-validation-errors class="mb-4" />

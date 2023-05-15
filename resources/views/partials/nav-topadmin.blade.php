@@ -15,9 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link lletraNav-transition" href="{{ route('afegir') }}">Afegir</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link lletraNav-transition" href="{{ route('graficos') }}">Graficos</a>
-                </li>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a class="nav-link lletraNav-transition" href="{{ route('reports') }}">Reports</a>
                 </li> --}}

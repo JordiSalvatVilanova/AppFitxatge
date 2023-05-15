@@ -48,7 +48,7 @@ class FitxadminController extends Controller
 
 
         $role = Role::where("name", "Treballador")->first();
-        $users = User::where("role_id", $role->id)->get();
+        $users = User::where("role_id", $role->id)->where("company_id", Auth::user()->company_id)->get();
 
         User::where("role_id", $role->id)->get();
 

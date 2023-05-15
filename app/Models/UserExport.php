@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use App\Models\User;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class UserExport implements FromCollection
 {
     public function collection()
     {
-        return User::all();
+
+        $role = Role::where("name", "Treballador")->first();
+
+        $users = User::where("role_id", $role->id)->where("company_id", Auth::user()->company_id)->get(["name", "email"]);
+
+        return $users;
     }
 }
