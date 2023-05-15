@@ -7,14 +7,18 @@ use App\Models\UserImport;
 use App\Models\UserExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Imports\HeadingRowFormatter;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
 {
     public function importUsers(Request $request)
     {
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Administrador")) {
+            return redirect()->route("inici");
+        }
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             Excel::import(new UserImport, $file);
@@ -27,6 +31,11 @@ class UserController extends Controller
 
     public function exportUsers()
     {
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Administrador")) {
+            return redirect()->route("inici");
+        }
+
         $date = now()->format('Ymd');
         $fileName = 'empleats_' . $date . '.csv';
         return Excel::download(new UserExport, $fileName);
@@ -34,6 +43,11 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Administrador")) {
+            return redirect()->route("inici");
+        }
+
         $user->delete();
         return redirect()->back()->with('success', 'Empleats ha estat eliminat correctament.');
     }

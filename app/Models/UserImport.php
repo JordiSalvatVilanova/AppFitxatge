@@ -12,10 +12,13 @@ class UserImport implements ToModel, WithUpserts
 {
     public function model(array $row)
     {
+
+        $role = Role::where("name", "Treballador")->first();
+
         return new User([
             'name' => $row[0],
             'email' => $row[1],
-            /*             'password' => Hash::make($row[2]), */
+            'role_id' => $role->id
         ]);
     }
 

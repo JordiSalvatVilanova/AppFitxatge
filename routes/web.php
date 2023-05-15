@@ -29,51 +29,30 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware("guest"); // GUEST -> INVITADO
 
-
-//ROUTE DE LA PARTE DE ADMINISTRADOR
-Route::get('/pin', function () {
-    return view('admin/pin');
-})->name("pin");
-
-Route::get("/fitxadmin", [FitxadminController::class, "fitxadmin"])->name("fitxadmin");
-
-
-Route::get("/afegir", [AfegirController::class, "afegir"])->name("afegir");
-Route::post('/import-users', [UserController::class, "importUsers"])->name('import-users');
-Route::get('/export-users', [UserController::class, "exportUsers"])->name('export-users');
-Route::delete('/delete-users', [UserController::class, "deleteUsers"])->name('delete-users');
-Route::delete('/users/{user}', [UserController::class, "destroy"])->name('users.destroy');
-
-Route::get("/graficos", [GraficosController::class, "graficos"])->name("graficos");
-/* Route::get("/reports", [ReportsController::class, "reports"])->name("reports"); */
-
-//FIN DE ROUTE DE LA PARTE DE ADMINISTRADOR
-
 //ROUTE DE LA PARTE DE GOOGLE
 Route::post('/login-google', function () {
     return Socialite::driver('google')->redirect();
 })->name('login-google')->middleware("guest");
 
 Route::get('/google-callback', function () {
-    $user = Socialite::driver('google')->user();
+    $user_google = Socialite::driver('google')->user();
 
-    $userExists = User::where('external_id', $user->id)->where('external_auth', 'google')->first();
-    //dd($userExists);
-    if ($userExists) {
-        Auth::login($userExists);
-    } else {
-        $userNew = User::create([
-            'name' => $user->name,
-            'email' => $user->email,
-            'avatar' => $user->avatar,
-            'external_id' => $user->id,
-            'external_auth' => 'google',
-        ]);
+    $user = User::where("email", $user_google->email)->first();
 
-        Auth::login($userNew);
+    if (!$user) {
+        return redirect()->route("login");
     }
+
+    if (!$user->external_id) {
+        $user->avatar = $user_google->avatar;
+        $user->external_id = $user_google->id;
+        $user->external_auth = "google";
+        $user->update();
+    }
+
+    Auth::login($user);
+
     return redirect('/inici');
-    // $user->token
 })->middleware("guest");
 //FIN DE ROUTE DE LA PARTE DE GOOGLE
 
@@ -83,11 +62,11 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    /* Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('dashboard'); */
 
-    //ROUTE DE LA PARTE DE CLIENTE
+    //ROUTE DE LA PARTE DE EMPLEADO
     Route::get("inici", [ClienteController::class, "inici"])->name("inici");
 
     Route::get('/agenda', function () {
@@ -104,12 +83,27 @@ Route::middleware([
         return view('cliente/fitxatge');
     })->name("fitxatge");
 
-
     Route::post("fitxatge/entrada", [FitxatgeController::class, 'entrada'])->name("fitxatge.entrada"); // nombre --> controlador.funcion
     Route::post("fitxatge/pausa", [FitxatgeController::class, 'pausa'])->name("fitxatge.pausa"); // nombre --> controlador.funcion
     Route::post("fitxatge/continuacio", [FitxatgeController::class, 'continuacio'])->name("fitxatge.continuacio"); // nombre --> controlador.funcion
     Route::post("fitxatge/sortida", [FitxatgeController::class, 'sortida'])->name("fitxatge.sortida"); // nombre --> controlador.funcion
     Route::get("fitxatge/mostrar/{fecha}", [FitxatgeController::class, 'devolverfitxarge']); // nombre --> controlador.funcion
 
-    //FIN DE ROUTE DE LA PARTE DE CLIENTE
+    //FIN DE ROUTE DE LA PARTE DE EMPLEADO
+
+    //ROUTE DE LA PARTE DE ADMINISTRADOR
+
+    Route::match(["get", "post"], "/fitxadmin", [FitxadminController::class, "fitxadmin"])->name("fitxadmin");
+
+    Route::get("/afegir", [AfegirController::class, "afegir"])->name("afegir");
+    Route::post('/import-users', [UserController::class, "importUsers"])->name('import-users');
+    Route::get('/export-users', [UserController::class, "exportUsers"])->name('export-users');
+    Route::delete('/delete-users', [UserController::class, "deleteUsers"])->name('delete-users');
+    Route::delete('/users/{user}', [UserController::class, "destroy"])->name('users.destroy');
+
+    Route::get("/graficos", [GraficosController::class, "graficos"])->name("graficos");
+    /* Route::get("/reports", [ReportsController::class, "reports"])->name("reports"); */
+
+    //FIN DE ROUTE DE LA PARTE DE ADMINISTRADOR
+
 });

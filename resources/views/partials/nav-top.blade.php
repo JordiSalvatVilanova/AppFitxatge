@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <a class="nav-link btn btn-danger" href="{{ route('logout') }}"
+                            <a class="nav-link lletraNav-transition" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Sortir') }}
                             </a>

@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Fitxatge;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class FitxatgeController extends Controller
 {
     public function entrada()
     {
-        $fitxatgeHoy = Fitxatge::where('id_treballador', 1)
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Treballador")) {
+            return redirect()->route("fitxadmin");
+        }
+
+        $fitxatgeHoy = Fitxatge::where('user_id', Auth::user()->id)
             ->whereDate('entrada', now()->toDateString())
             ->first();
         if ($fitxatgeHoy) {
@@ -17,8 +23,7 @@ class FitxatgeController extends Controller
         }
 
         $fitxatge = new Fitxatge();
-        //$fitxatge->id_empresa = Auth::user()->id_empresa;
-        $fitxatge->id_treballador = 1;
+        $fitxatge->user_id = Auth::user()->id;
         $fitxatge->entrada = now();
         $fitxatge->save();
 
@@ -35,9 +40,14 @@ class FitxatgeController extends Controller
 
     public function pausa()
     {
-        $fitxatge = Fitxatge::where('id_treballador', 1)
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Treballador")) {
+            return redirect()->route("fitxadmin");
+        }
+
+        $fitxatge = Fitxatge::where('user_id', Auth::user()->id)
             ->whereDate('entrada', now()->toDateString())
-            ->orderBy("id_jornada", "DESC")
+            ->orderBy("id", "DESC")
             ->first();
         if (!$fitxatge || $fitxatge->sortida) {
             return redirect()->route('inici')->with('error', 'No has iniciat la jornada laboral avui');
@@ -51,15 +61,20 @@ class FitxatgeController extends Controller
 
     public function continuacio()
     {
-        $fitxatge = Fitxatge::where('id_treballador', 1)
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Treballador")) {
+            return redirect()->route("fitxadmin");
+        }
+
+        $fitxatge = Fitxatge::where('user_id', Auth::user()->id)
             ->whereDate('entrada', now()->toDateString())
-            ->orderBy("id_jornada", "DESC")
+            ->orderBy("id", "DESC")
             ->first();
         if (!$fitxatge || $fitxatge->sortida) {
             return redirect()->route('inici')->with('error', 'No has iniciat la jornada laboral avui');
         }
         if (!$fitxatge->pausa) {
-            return redirect()->route('inici')->with('error', 'Heu d/iniciar una pausa abans de continuar');
+            return redirect()->route('inici')->with('error', 'Heu d/ iniciar una pausa abans de continuar');
         }
 
         $fitxatge->continuitat = now();
@@ -70,8 +85,13 @@ class FitxatgeController extends Controller
 
     public function sortida()
     {
+
+        if (!(Auth::user()->role && Auth::user()->role->name == "Treballador")) {
+            return redirect()->route("fitxadmin");
+        }
+
         $date = now()->format('Y-m-d');
-        $fitxatge = Fitxatge::where('id_treballador', 1)->whereDate('entrada', $date)->orderBy("id", "DESC")->first();
+        $fitxatge = Fitxatge::where('user_id', Auth::user()->id)->whereDate('entrada', $date)->orderBy("id", "DESC")->first();
         if ($fitxatge) {
             if (!$fitxatge->sortida) {
                 $fitxatge->sortida = now();
@@ -81,28 +101,31 @@ class FitxatgeController extends Controller
                 $text = 'Gràcies per la teva feina avui!';
                 $type = 'success';
 
-                return redirect()->route('inici')->with('sweet-alert', compact('title', 'text', 'type'));
+                return redirect()->route('inici')->with('showSweetAlert', compact('title', 'text', 'type'));
             } else {
                 $title = 'Ja has marcat la sortida avui';
                 $text = 'No pots marcar la sortida dues vegades!';
                 $type = 'error';
 
-                return redirect()->route('inici')->with('sweet-alert', compact('title', 'text', 'type'));
+                return redirect()->route('inici')->with('showSweetAlert', compact('title', 'text', 'type'));
             }
         } else {
             $title = 'Encara no has marcat l\'entrada avui';
             $text = 'Has d\'iniciar la teva jornada laboral abans de marcar la sortida!';
             $type = 'error';
 
-            return redirect()->route('inici')->with('sweet-alert', compact('title', 'text', 'type'));
+            return redirect()->route('inici')->with('showSweetAlert', compact('title', 'text', 'type'));
         }
     }
-
 
     public function devolverfitxarge($fecha)
     {
 
-        $fitxatges = Fitxatge::where('id_treballador', 1)->where("entrada", "LIKE", "$fecha%")->whereNotNull("sortida")->get();
+        if (!(Auth::user()->role && Auth::user()->role->name == "Treballador")) {
+            return redirect()->route("fitxadmin");
+        }
+
+        $fitxatges = Fitxatge::where('user_id', Auth::user()->id)->where("entrada", "LIKE", "$fecha%")->whereNotNull("sortida")->get();
         if ($fitxatges->isEmpty()) {
             return response()->json([
                 "fecha" => $fecha,

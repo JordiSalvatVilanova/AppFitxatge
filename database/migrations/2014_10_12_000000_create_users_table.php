@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password')->nullable();
+            $table->foreignId("role_id")->nullable()->constrained();
             $table->string('avatar')->nullable();
             $table->string('external_id')->nullable();
             $table->string('external_auth')->nullable();

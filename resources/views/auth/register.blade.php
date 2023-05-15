@@ -39,6 +39,13 @@
                         name="password_confirmation" required autocomplete="new-password" />
                 </div>
 
+                <div class="mt-4">
+                    <x-jet-label for="pin" value="{{ __('PIN') }}" />
+                    <x-jet-input id="pin" class="block mt-1 w-full" type="text" name="pin" required
+                        autocomplete="current-pin" pattern="[0-9]{4}"
+                        title="Por favor, introduce un número de 4 dígitos" />
+                </div>
+
 
                 @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                     <div class="mt-4">

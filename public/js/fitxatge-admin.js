@@ -12,3 +12,15 @@ if (tabla.clientHeight <= contenidor.clientHeight) {
     // Si es major, mostrarem el scroll lateral
     contenidor.style.overflowY = "scroll";
 }
+
+$(document).ready(function() {
+    $('.select2').select2();
+});
+
+$('.select2').on('select2:select', function (e) {
+    var { id } = e.params.data
+    if (id) {
+        $("form#form-filter").submit();
+
+    }
+});

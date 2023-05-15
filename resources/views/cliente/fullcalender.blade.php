@@ -5,35 +5,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('css/cliente-agenda.css') }}">
 @endpush
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
-
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/ca.js'></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-
 </head>
 
-@section('content')
-    <br>
-    <div class="container">
-        <div id='calendar'></div>
-    </div>
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale/ca.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+
 
     <script type="text/javascript">
         $(document).ready(function() {
+
 
             /*Obtenir la URL del lloc*/
             var SITEURL = "{{ url('/') }}";
@@ -63,7 +53,25 @@
                 selectHelper: true,
                 select: function(start, end, allDay) {
                     var title = prompt('Títol de l\'esdeveniment:');
-
+                    /*                    
+                    Swal.fire({
+                        title: 'Títol de l\'esdeveniment:',
+                        input: 'text',
+                        showCancelButton: true,
+                        confirmButtonText: 'Guardar',
+                        cancelButtonText: 'Cancelar',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Cal introduir un títol';
+                            }
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var title = result.value;
+                            // Aquí puedes continuar con el resto del código
+                        }
+                    });
+                    */
                     if (title) {
                         var start = $.fullCalendar.formatDate(start, "Y-MM-DD");
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD");
@@ -97,7 +105,6 @@
                         });
                     }
                 },
-
                 eventDrop: function(event, delta) {
                     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
@@ -164,4 +171,11 @@
             toastr.success(message, 'Esdeveniment');
         }
     </script>
+@endpush
+
+@section('content')
+    <br>
+    <div class="container">
+        <div id='calendar'></div>
+    </div>
 @endsection()

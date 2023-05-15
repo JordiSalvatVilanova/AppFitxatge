@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fitxatge', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained();
-            $table->dateTime('entrada')->nullable();
-            $table->dateTime('pausa')->nullable();
-            $table->dateTime('continuitat')->nullable();
-            $table->dateTime('sortida')->nullable();
+            $table->string("name");
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fitxatge');
+        Schema::dropIfExists('roles');
     }
 };

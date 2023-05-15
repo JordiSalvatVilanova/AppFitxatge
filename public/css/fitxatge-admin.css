@@ -248,3 +248,11 @@ body {
     margin-bottom: 210px;
     /* Alçada del footer */
 }
+
+.user_name {
+    background-color: #000;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    opacity: 0.9;
+}
