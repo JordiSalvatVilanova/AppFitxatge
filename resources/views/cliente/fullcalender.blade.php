@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('css/cliente-agenda.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/barraNavegacio.css') }}">
 @endpush
 
 <head>
@@ -184,4 +185,5 @@
     <div class="container">
         <div id='calendar'></div>
     </div>
+    <br>
 @endsection()

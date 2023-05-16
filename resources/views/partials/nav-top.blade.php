@@ -38,7 +38,6 @@
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Log in') }}</a>
                     </li>
                 @endauth
-
             </ul>
         </div>
     </div>

@@ -3,6 +3,7 @@
 @push('styles')
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/fitxatge-client.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/barraNavegacio.css') }}">
 @endpush
 
 @push('scripts')

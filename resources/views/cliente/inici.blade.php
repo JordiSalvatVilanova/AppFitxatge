@@ -2,6 +2,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/cliente-inici.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/barraNavegacio.css') }}">
     <!-- CARRUSEL -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" />
     <link rel="stylesheet" type="text/css"

@@ -25,6 +25,8 @@
                     @auth
                     <li class="nav-item">
                         <a class="nav-link estilNav">
+                            <img src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1912/tuktukdesign191200106/134984406-avatar-de-perfil-de-persona-masculina-de-vector-de-icono-de-trabajador-con-rueda-dentada-de.jpg?ver=6"
+                                alt="Imatge de perfil" class="rounded-circle" width="40" height="40">
                             {{ Auth::user()->name }}
                         </a>
                     </li>
