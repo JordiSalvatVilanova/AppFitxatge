@@ -25,7 +25,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-
             /*Obtenir la URL del lloc*/
             var SITEURL = "{{ url('/') }}";
 

@@ -52,7 +52,7 @@
                     <a href="{{ route('export-users') }}" class="form-btn">Descarregar empleats</a>
                 </div>
             </form>
-            <div class="table-responsive table-container">
+            <div class="table-responsive table-container table-users mt-5">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>

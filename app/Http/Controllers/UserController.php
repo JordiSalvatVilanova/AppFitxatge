@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserImport;
 use App\Models\UserExport;
+use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,12 @@ class UserController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            Excel::import(new UserImport, $file);
+            try {
+                Excel::import(new UserImport, $file);
+            } catch (Exception $e) {
+                return redirect()->back()->with('error', 'El fitxer es incorrecte.');
+            }
+
 
             return redirect()->back()->with('success', 'Els nous empleats han estat importats correctament.');
         } else {
