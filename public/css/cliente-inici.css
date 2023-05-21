@@ -1,6 +1,11 @@
 #titol {
     text-align: center;
     padding: 3.4vw 2.4vw 0 1.5vw; /* Utiliza valores proporcionales para el padding */
+	margin-top: 3rem;
+}
+
+#titol h1 {
+	margin-bottom: 1.5rem;
 }
 
 h2,
@@ -45,10 +50,10 @@ h3 {
     } */
   
     /* Carrousel */
-    #carousel {
+    /*#carousel {
       height: 200px;
     }
-  
+  */
     #carousel img {
       max-height: 200px;
     }

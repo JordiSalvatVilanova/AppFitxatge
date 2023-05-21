@@ -36,3 +36,12 @@ table {
     border: 1px solid black;
     /* padding: 0.8vw; */
 }
+
+.user_name {
+
+	background-color: rgba(0, 0, 0, 0.9);
+	color: white;
+	padding: 12px;
+	border-radius: 10px;
+
+}

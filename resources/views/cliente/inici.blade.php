@@ -58,13 +58,13 @@
         </div>
     </div>
 
+
     <span id="titol">
         <h1>IdentWork</h1>
         <h3>el teu fitxatge amb un sol click.</h3>
     </span>
-
     <!-- BOTONES -->
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mb-3">
         <form role="form" action="{{ route('fitxatge.entrada') }}" method="post">
             @csrf
             <button type="submit" class="btn btn-outline-success mx-2">

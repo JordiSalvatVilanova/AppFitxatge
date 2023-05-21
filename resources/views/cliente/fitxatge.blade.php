@@ -14,7 +14,7 @@
 @endpush
 
 @section('content')
-    <div id="calendarioContenedor">
+    <div id="calendarioContenedor" class="mt-3">
 
         <!-- CALENDARI -->
         <div id="calendario">
