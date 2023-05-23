@@ -22,14 +22,14 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Éxito',
-                text: '{{ session('success') }}',
+                text: "{{ session('success') }}",
             });
         @endif
         @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: '{{ session('error') }}',
+                text: "{{ session('error') }}",
             });
         @endif
 
@@ -37,7 +37,7 @@
             Swal.fire({
                 icon: '{{ session('showSweetAlert.type') }}',
                 title: '{{ session('showSweetAlert.title') }}',
-                text: '{{ session('showSweetAlert.text') }}',
+                text: "{{ session('showSweetAlert.text') }}",
             });
         @endif
     </script>
@@ -64,31 +64,30 @@
         <h3>el teu fitxatge amb un sol click.</h3>
     </span>
     <!-- BOTONES -->
-    <div class="d-flex justify-content-center mb-3">
-        <form role="form" action="{{ route('fitxatge.entrada') }}" method="post">
+    <div class="btn-row justify-content-center text-center">
+        <form role="form" action="{{ route('fitxatge.entrada') }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-outline-success mx-2">
+            <button type="submit" class="btn btn-outline-success m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Entrada</h3>
             </button>
         </form>
-        <form role="form" action="{{ route('fitxatge.pausa') }}" method="post">
+        <form role="form" action="{{ route('fitxatge.pausa') }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-outline-primary mx-2">
+            <button type="submit" class="btn btn-outline-primary m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Pausa</h3>
             </button>
         </form>
-        <form role="form" action="{{ route('fitxatge.continuacio') }}" method="post">
+        <form role="form" action="{{ route('fitxatge.continuacio') }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-outline-info mx-2">
+            <button type="submit" class="btn btn-outline-info m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Continuació</h3>
             </button>
         </form>
-        <form role="form" action="{{ route('fitxatge.sortida') }}" method="post">
+        <form role="form" action="{{ route('fitxatge.sortida') }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-outline-danger mx-2">
+            <button type="submit" class="btn btn-outline-danger m-2 col-10 col-sm-6 col-md-4 col-lg-2">
                 <h3>Sortida</h3>
             </button>
         </form>
-
     </div>
 @endsection

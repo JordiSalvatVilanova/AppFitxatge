@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Descans;
 use App\Models\Fitxatge;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -15,11 +16,17 @@ class FitxatgeController extends Controller
             return redirect()->route("fitxadmin");
         }
 
-        $fitxatgeHoy = Fitxatge::where('user_id', Auth::user()->id)
+        /* $fitxatge = Fitxatge::where('user_id', Auth::user()->id)
             ->whereDate('entrada', now()->toDateString())
+            ->first(); */
+
+        $fitxatge = Fitxatge::where('user_id', Auth::user()->id)
+            ->whereDate('entrada', now()->toDateString())
+            ->orderBy("id", "DESC")
             ->first();
-        if ($fitxatgeHoy) {
-            return redirect()->route('inici')->with('error', 'Ja heu registrat l/entrada avui');
+
+        if ($fitxatge->id && !$fitxatge->sortida) {
+            return redirect()->route('inici')->with('error', 'Ja has fitxat surt abans de tornar a fitxar');
         }
 
         $fitxatge = new Fitxatge();
@@ -28,14 +35,6 @@ class FitxatgeController extends Controller
         $fitxatge->save();
 
         return redirect()->route('inici')->with('success', 'Has iniciat la teva jornada laboral')->with('alert-type', 'success');
-    }
-
-    public function hacerPausasYContinuidades()
-    {
-        for ($i = 0; $i < 5; $i++) {
-            $this->pausa();
-            $this->continuacio();
-        }
     }
 
     public function pausa()
@@ -49,12 +48,21 @@ class FitxatgeController extends Controller
             ->whereDate('entrada', now()->toDateString())
             ->orderBy("id", "DESC")
             ->first();
+
         if (!$fitxatge || $fitxatge->sortida) {
             return redirect()->route('inici')->with('error', 'No has iniciat la jornada laboral avui');
         }
 
-        $fitxatge->pausa = now();
-        $fitxatge->update();
+        $descans = Descans::where('fixtage_id', $fitxatge->id)->orderBy("id", "DESC")->first();
+
+        if ($descans && !$descans->continuitat) {
+            return redirect()->route('inici')->with('error', 'Ja has pausat.');
+        }
+
+        $descans = Descans::create([
+            'pausa' => now(),
+            'fixtage_id' => $fitxatge->id,
+        ]);
 
         return redirect()->route('inici')->with('success', 'Has iniciat una pausa')->with('alert-type', 'success');
     }
@@ -70,15 +78,19 @@ class FitxatgeController extends Controller
             ->whereDate('entrada', now()->toDateString())
             ->orderBy("id", "DESC")
             ->first();
+
         if (!$fitxatge || $fitxatge->sortida) {
             return redirect()->route('inici')->with('error', 'No has iniciat la jornada laboral avui');
         }
-        if (!$fitxatge->pausa) {
-            return redirect()->route('inici')->with('error', 'Heu d/ iniciar una pausa abans de continuar');
+
+        $descans = Descans::where('fixtage_id', $fitxatge->id)->orderBy("id", "DESC")->first();
+
+        if ($descans->id == null || $descans->continuitat != null) {
+            return redirect()->route('inici')->with('error', "Heu d\' iniciar una pausa abans de continuar");
         }
 
-        $fitxatge->continuitat = now();
-        $fitxatge->update();
+        $descans->continuitat = now();
+        $descans->update();
 
         return redirect()->route('inici')->with('success', 'Has reprès la teva activitat laboral')->with('alert-type', 'success');
     }
@@ -92,7 +104,14 @@ class FitxatgeController extends Controller
 
         $date = now()->format('Y-m-d');
         $fitxatge = Fitxatge::where('user_id', Auth::user()->id)->whereDate('entrada', $date)->orderBy("id", "DESC")->first();
+        $descans = Descans::where('fixtage_id', $fitxatge->id)->orderBy("id", "DESC")->first();
+
         if ($fitxatge) {
+
+            if ($descans && $descans->continuitat == null) {
+                return redirect()->route('inici')->with('error', "Esteu en una pausa.");
+            }
+
             if (!$fitxatge->sortida) {
                 $fitxatge->sortida = now();
                 $fitxatge->update();
@@ -143,20 +162,23 @@ class FitxatgeController extends Controller
 
             $diferencia = ($timestamp1 - $timestamp2) / (60 * 60);
 
-            if ($fitxatge->pausa && $fitxatge->continuitat) {
-                $timestamp3 = strtotime($fitxatge->continuitat);
-                $timestamp4 = strtotime($fitxatge->pausa);
+            $descansos = Descans::where('fixtage_id', $fitxatge->id)->get();
 
-                $difpausa = ($timestamp3 - $timestamp4) / (60 * 60);
-                $diferencia -= $difpausa;
+            $tempsDescansat = 0;
+
+            foreach ($descansos as $descans) {
+                $timestamppausa = strtotime($descans->pausa);
+                $timestampcontinuitat = strtotime($descans->continuitat);
+
+                $tempsDescansat += ($timestampcontinuitat - $timestamppausa) / (60 * 60);
             }
 
-            $total += floor($diferencia);
+            $total += $diferencia - $tempsDescansat;
         }
 
         return response()->json([
             "fecha" => $fecha,
-            "total" => $total,
+            "total" => floor($total),
             "entrada" => Carbon::createFromFormat('Y-m-d H:i:s', $fitxatges[0]->entrada)->format('d/m/Y H:i:s'),
             "sortida" => Carbon::createFromFormat('Y-m-d H:i:s', $fitxatges[count($fitxatges) - 1]->sortida)->format('d/m/Y H:i:s'),
         ]);

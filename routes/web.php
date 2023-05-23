@@ -40,7 +40,7 @@ Route::get('/google-callback', function () {
     $user = User::where("email", $user_google->email)->first();
 
     if (!$user) {
-        return redirect()->route("login");
+        return redirect()->route("login")->with("error", "Aquest usuari no està registrat.");
     }
 
     if (!$user->external_id) {

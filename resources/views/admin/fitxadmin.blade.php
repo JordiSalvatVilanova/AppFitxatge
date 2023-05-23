@@ -32,8 +32,9 @@
                         <tr>
                             <th scope="col">Data</th>
                             <th scope="col">Entrada</th>
-                            <th scope="col" class="pausa-continuitat">Pausa</th>
-                            <th scope="col" class="pausa-continuitat">Continuïtat</th>
+                            {{-- <th scope="col" class="pausa-continuitat">Pausa</th>
+                            <th scope="col" class="pausa-continuitat">Continuïtat</th> --}}
+                            <th scope="col">Descans</th>
                             <th scope="col">Sortida</th>
                             <th scope="col">Temps Total</th>
                         </tr>
@@ -44,13 +45,14 @@
                                 <tr>
                                     <td scope="col">{{ $fitxatge->data }}</td>
                                     <td scope="col">{{ $fitxatge->entrada }}</td>
-                                    <td scope="col"
+                                    {{-- <td scope="col"
                                         class="pausa-continuitat @if ($fitxatge->pausa == '-') text-center @endif">
                                         {{ $fitxatge->pausa }}</td>
 
                                     <td scope="col"
                                         class="pausa-continuitat @if ($fitxatge->continuitat == '-') text-center @endif">
-                                        {{ $fitxatge->continuitat }}</td>
+                                        {{ $fitxatge->continuitat }}</td> --}}
+                                    <td scope="col">{{ $fitxatge->descans }}</td>
                                     <td scope="col">{{ $fitxatge->sortida }}</td>
                                     <td scope="col">{{ $fitxatge->hores_totals }}</td>
                                 </tr>
